@@ -150,7 +150,9 @@ by Monty Zukowski
 st.line_chart(
     gdp_df,
     x='DateTime',
+    x_label='date'
     y='hpd_fb',
+    y_label='feet'
 )
 
 ''
