@@ -53,7 +53,7 @@ def get_gdp_data():
 
     # # Convert years from string to integers
     # gdp_df['Year'] = pd.to_numeric(gdp_df['Year'])
-
+    raw_gdp_df['hpd_fb'] = raw_gdp_df['hpd_fb'] - 4501
     return raw_gdp_df
 
 gdp_df = get_gdp_data()
