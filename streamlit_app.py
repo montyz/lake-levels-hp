@@ -147,4 +147,9 @@ by Monty Zukowski
 #             delta_color=delta_color
 #         )
 
-gdp_df
+st.line_chart(
+    gdp_df,
+    x='DateTime',
+    y='hpd_fb',
+)
+
