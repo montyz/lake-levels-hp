@@ -53,7 +53,6 @@ def get_gdp_data():
 
     # # Convert years from string to integers
     # gdp_df['Year'] = pd.to_numeric(gdp_df['Year'])
-    raw_gdp_df['hpd_fb'] = raw_gdp_df['hpd_fb'] - 4501
     return raw_gdp_df
 
 gdp_df = get_gdp_data()
@@ -146,11 +145,13 @@ by Monty Zukowski
 #             delta=growth,
 #             delta_color=delta_color
 #         )
+ramp = st.number_input('ramp elevation', value = 4501.0)
+gdp_df['hpd_fb'] = gdp_df['hpd_fb'] - ramp
 
 st.line_chart(
     gdp_df,
     x='DateTime',
-    x_label='date'
+    x_label='date',
     y='hpd_fb',
     y_label='feet'
 )
