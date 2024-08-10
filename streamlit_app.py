@@ -105,8 +105,14 @@ rules = alt.Chart(gdp_df).transform_pivot(
     tooltip=[alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)')],
 ).add_params(nearest)
 
+selectors = alt.Chart(gdp_df).mark_point().encode(
+    x="DateTime:Q",
+    opacity=alt.value(0),
+).add_params(
+    nearest
+)
 altair_chart = alt.layer(
-    line#, points, rules
+    line, selectors#, points, rules
 )
 
 
