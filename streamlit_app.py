@@ -72,7 +72,7 @@ st.line_chart(
 
 # Create a selection that chooses the nearest point & selects based on x-value
 nearest = alt.selection_point(nearest=True, on="pointerover",
-                              fields=["x"], empty=False)
+                              fields=["DateTime"], empty=False)
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
     x='DateTime',
