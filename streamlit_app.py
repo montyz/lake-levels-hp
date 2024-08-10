@@ -97,7 +97,7 @@ points = line.mark_point().encode(
 # ).add_params(nearest)
 
 altair_chart = alt.layer(
-    line, points#, rules
+    line#, points#, rules
 )
 
 
