@@ -100,7 +100,7 @@ altair_chart = alt.layer(
 )
 
 
-st.altair_chart(altair_chart)
+st.altair_chart(rules)
 
 ''
 '### raw data from usbr.gov'
