@@ -80,7 +80,7 @@ line = alt.Chart(gdp_df).mark_line().encode(
 line.interactive().properties(
     selection=alt.selection_single(),
     tooltip=[
-        alt.Tooltip('hpd_fb', title='Lake Level (feet)'),
+        alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
         alt.Tooltip('DateTime', title='Date', format='%Y-%m-%d %H:%M:%S'),
     ]
 )
