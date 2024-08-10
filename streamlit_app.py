@@ -69,10 +69,35 @@ st.line_chart(
     y_label='feet'
 )
 
-altair_chart = alt.Chart(gdp_df).mark_line().encode(
+# Create a selection that chooses the nearest point & selects based on x-value
+nearest = alt.selection_point(nearest=True, on="pointerover",
+                              fields=["x"], empty=False)
+# The basic line
+line = alt.Chart(gdp_df).mark_line().encode(
     x='DateTime',
     y='hpd_fb'
 )
+
+# Draw points on the line, and highlight based on selection
+points = line.mark_point().encode(
+    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+)
+
+# Draw a rule at the location of the selection
+rules = alt.Chart(gdp_df).transform_pivot(
+    "category",
+    value="y",
+    groupby=["x"]
+).mark_rule(color="gray").encode(
+    x="x:Q",
+    opacity=alt.condition(nearest, alt.value(0.3), alt.value(0)),
+    tooltip=[alt.Tooltip("DateTime", type="quantitative")],
+).add_params(nearest)
+
+altair_chart = alt.layer(
+    line, points, rules
+)
+
 
 st.altair_chart(altair_chart)
 
