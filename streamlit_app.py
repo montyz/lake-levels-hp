@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import math
+import datetime
 from pathlib import Path
 
 # Set the title and favicon that appear in the Browser's tab bar.
@@ -21,16 +21,18 @@ def get_gdp_data():
     a maximum age to the cache with the TTL argument: @st.cache_data(ttl='1d')
     """
 
-    # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
+    today = datetime.date.today()
+    last_month = today - datetime.timedelta(months=1)
+
     base_url = 'https://www.usbr.gov/pn-bin/daily.pl'
     station = 'hpd'
     format_type = 'csv'
-    start_year = '2024'
-    start_month = '6'
-    start_day = '30'
-    end_year = '2024'
-    end_month = '8'
-    end_day = '31'
+    start_year = last_month.year
+    start_month = last_month.month
+    start_day = last_month.day
+    end_year = today.year
+    end_month = today.month
+    end_day = today.day
     param1 = 'fb'
     param2 = 'qj'
     url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
