@@ -95,16 +95,11 @@ points = line.mark_point().encode(
 )
 
 # Draw a rule at the location of the selection
-rules = alt.Chart(gdp_df).transform_pivot(
-    "category",
-    value="hpd_fb",
-    groupby=["DateTime"]
-).mark_rule(color="gray").encode(
-    x="DateTime:Q",
-    opacity=alt.condition(nearest, alt.value(0.3), alt.value(0)),
-    tooltip=[alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)')],
-).add_params(nearest)
-
+rules = alt.Chart(gdp_df).mark_rule(color="gray").encode(
+    x="x:Q",
+).transform_filter(
+    nearest
+)
 selectors = alt.Chart(gdp_df).mark_point().encode(
     x="DateTime:Q",
     opacity=alt.value(0),
@@ -112,7 +107,7 @@ selectors = alt.Chart(gdp_df).mark_point().encode(
     nearest
 )
 altair_chart = alt.layer(
-    line, selectors#, points, rules
+    line, rules#, points, rules
 )
 
 
