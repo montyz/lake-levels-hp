@@ -91,7 +91,7 @@ line.interactive().properties(
 
 # Draw points on the line, and highlight based on selection
 points = line.mark_point().encode(
-    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+   # opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
 
 # Draw a rule at the location of the selection
