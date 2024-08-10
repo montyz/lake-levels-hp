@@ -76,6 +76,16 @@ line = alt.Chart(gdp_df).mark_line().encode(
     y='hpd_fb'
 )
 
+# Interactive line chart with tooltips
+line.interactive().properties(
+    selection=alt.selection_single(),
+    tooltip=[
+        alt.Tooltip('hpd_fb', title='Lake Level (feet)'),
+        alt.Tooltip('DateTime', title='Date', format='%Y-%m-%d %H:%M:%S'),
+    ]
+)
+
+
 # Create a selection that chooses the nearest point & selects based on x-value
 nearest = alt.selection_point(nearest=True, on="pointerover",
                               fields=["DateTime"], empty=False)
@@ -91,7 +101,7 @@ altair_chart = alt.layer(
 )
 
 
-st.altair_chart(altair_chart)
+st.altair_chart(line)
 
 ''
 '### raw data from usbr.gov'
