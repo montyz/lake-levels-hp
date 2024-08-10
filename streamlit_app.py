@@ -78,7 +78,8 @@ line = alt.Chart(gdp_df).mark_line().encode(
 
 # Interactive line chart with tooltips
 line.interactive().properties(
-    selection=alt.selection_point(),
+    selection=alt.selection_point(nearest=True, on="pointerover",
+                              fields=["DateTime"], empty=False),
     tooltip=[
         alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
         alt.Tooltip('DateTime:Q', title='Date', format='%Y-%m-%d %H:%M:%S'),
