@@ -81,7 +81,7 @@ line.interactive().properties(
     selection=alt.selection_single(),
     tooltip=[
         alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
-        alt.Tooltip('DateTime', title='Date', format='%Y-%m-%d %H:%M:%S'),
+        alt.Tooltip('DateTime:Q', title='Date', format='%Y-%m-%d %H:%M:%S'),
     ]
 )
 
