@@ -83,13 +83,11 @@ nearest = alt.selection_point(nearest=True, on="pointerover",
 # Interactive line chart with tooltips
 line.interactive().properties(
     selection=nearest,
-    tooltip=[
-        alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
-        alt.Tooltip('DateTime:Q', title='Date', format='%Y-%m-%d %H:%M:%S'),
-    ]
+    # tooltip=[
+    #     alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
+    #     alt.Tooltip('DateTime:Q', title='Date', format='%Y-%m-%d %H:%M:%S'),
+    # ]
 )
-
-
 
 # Draw points on the line, and highlight based on selection
 points = line.mark_point().encode(
