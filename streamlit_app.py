@@ -95,7 +95,7 @@ rules = alt.Chart(gdp_df).transform_pivot(
 ).add_params(nearest)
 
 altair_chart = alt.layer(
-    line#, points, rules
+    line, points#, rules
 )
 
 
