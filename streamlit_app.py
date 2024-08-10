@@ -99,10 +99,10 @@ points = line.mark_point().encode(
 # Draw a rule at the location of the selection
 rules = alt.Chart(gdp_df).transform_pivot(
     "category",
-    value="y",
-    groupby=["x"]
+    value="hpd_fb",
+    groupby=["DateTime"]
 ).mark_rule(color="gray").encode(
-    x="x:Q",
+    x="DateTime:Q",
     opacity=alt.condition(nearest, alt.value(0.3), alt.value(0)),
     tooltip=[alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)')],
 ).add_params(nearest)
