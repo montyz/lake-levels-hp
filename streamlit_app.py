@@ -85,19 +85,9 @@ points = line.mark_point().encode(
     opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
 
-# Draw a rule at the location of the selection
-# rules = alt.Chart(gdp_df).transform_pivot(
-#     "category",
-#     value="y",
-#     groupby=["x"]
-# ).mark_rule(color="gray").encode(
-#     x="x:Q",
-#     opacity=alt.condition(nearest, alt.value(0.3), alt.value(0)),
-#     tooltip=[alt.Tooltip("DateTime", type="quantitative")],
-# ).add_params(nearest)
 
 altair_chart = alt.layer(
-    line#, points#, rules
+    line, points
 )
 
 
