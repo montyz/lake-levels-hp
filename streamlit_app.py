@@ -96,7 +96,7 @@ points = line.mark_point().encode(
 
 # Draw a rule at the location of the selection
 rules = alt.Chart(gdp_df).mark_rule(color="gray").encode(
-    x="x:Q",
+    x="DateTime:Q",
 ).transform_filter(
     nearest
 )
