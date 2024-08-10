@@ -22,7 +22,7 @@ def get_gdp_data():
     """
 
     today = datetime.date.today()
-    last_month = today - datetime.timedelta(months=1)
+    last_month = today - datetime.timedelta(days=30)
 
     base_url = 'https://www.usbr.gov/pn-bin/daily.pl'
     station = 'hpd'
