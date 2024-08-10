@@ -23,6 +23,7 @@ def get_gdp_data():
     """
 
     today = datetime.date.today()
+    yesterday = today - datetime.timedelta(days=1)
     last_month = today - datetime.timedelta(days=30)
 
     base_url = 'https://www.usbr.gov/pn-bin/daily.pl'
@@ -31,9 +32,9 @@ def get_gdp_data():
     start_year = last_month.year
     start_month = last_month.month
     start_day = last_month.day
-    end_year = today.year
-    end_month = today.month
-    end_day = today.day
+    end_year = yesterday.year
+    end_month = yesterday.month
+    end_day = yesterday.day
     param1 = 'fb'
     param2 = 'qj'
     url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
