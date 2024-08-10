@@ -62,13 +62,6 @@ by Monty Zukowski
 ramp = st.number_input('ramp elevation', value = 4501.0)
 gdp_df['hpd_fb'] = gdp_df['hpd_fb'] - ramp
 
-st.line_chart(
-    gdp_df,
-    x='DateTime',
-    x_label='date',
-    y='hpd_fb',
-    y_label='feet'
-)
 
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
@@ -114,6 +107,16 @@ altair_chart = alt.layer(
 
 
 st.altair_chart(altair_chart)
+
+
+st.line_chart(
+    gdp_df,
+    x='DateTime',
+    x_label='date',
+    y='hpd_fb',
+    y_label='feet'
+)
+
 
 ''
 '### raw data from usbr.gov'
