@@ -70,8 +70,8 @@ st.line_chart(
 )
 
 altair_chart = alt.Chart(gdp_df).mark_line().encode(
-    x='x',
-    y='f(x)'
+    x='DateTime',
+    y='hpd_fb'
 )
 
 st.altair_chart(altair_chart)
