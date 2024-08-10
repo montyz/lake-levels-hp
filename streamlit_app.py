@@ -22,7 +22,20 @@ def get_gdp_data():
     """
 
     # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
-    raw_gdp_df = pd.read_csv('https://www.usbr.gov/pn-bin/daily.pl?station=hpd&format=csv&year=2024&month=6&day=30&year=2024&month=8&day=31&pcode=fb&pcode=qj')
+    base_url = 'https://www.usbr.gov/pn-bin/daily.pl'
+    station = 'hpd'
+    format_type = 'csv'
+    start_year = '2024'
+    start_month = '6'
+    start_day = '30'
+    end_year = '2024'
+    end_month = '8'
+    end_day = '31'
+    param1 = 'fb'
+    param2 = 'qj'
+    url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
+
+    raw_gdp_df = pd.read_csv(url)
 
     return raw_gdp_df
 
