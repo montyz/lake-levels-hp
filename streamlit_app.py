@@ -75,25 +75,16 @@ line = alt.Chart(gdp_df).mark_line().encode(
 nearest = alt.selection_point(nearest=True, on="pointerover",
                               fields=["x"], empty=False)
 
-# Interactive line chart with tooltips
-line.interactive().properties(
-    selection=nearest,
-    # tooltip=[
-    #     alt.Tooltip('hpd_fb:Q', title='Lake Level (feet)'),
-    #     alt.Tooltip('DateTime:Q', title='Date', format='%Y-%m-%d %H:%M:%S'),
-    # ]
-)
 
 # Draw points on the line, and highlight based on selection
 points = line.mark_point().encode(
-   # opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+   opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
 
 # Draw a rule at the location of the selection
 rules = alt.Chart(gdp_df).mark_rule(color="gray").encode(
     x="x:Q",
     y='y:Q'
-
 ).transform_filter(
     nearest
 )
@@ -104,7 +95,7 @@ selectors = alt.Chart(gdp_df).mark_point().encode(
     nearest
 )
 altair_chart = alt.layer(
-    line, rules#, points, rules
+    line, points, rules
 )
 
 
