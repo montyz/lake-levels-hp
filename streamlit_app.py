@@ -40,8 +40,8 @@ def get_gdp_data():
     url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
 
     raw_gdp_df = pd.read_csv(url)
-    raw_gdp_df['DateTime'] = pd.to_datetime(raw_gdp_df['DateTime'])
-    raw_gdp_df['hpd_fb'] = raw_gdp_df['hpd_fb'].astype(float)
+    raw_gdp_df['x'] = pd.to_datetime(raw_gdp_df['DateTime'])
+    raw_gdp_df['y'] = raw_gdp_df['hpd_fb'].astype(float)
     
     return raw_gdp_df
 
@@ -62,18 +62,18 @@ by Monty Zukowski
 ''
 
 ramp = st.number_input('ramp elevation', value = 4501.0)
-gdp_df['hpd_fb'] = gdp_df['hpd_fb'] - ramp
+gdp_df['y'] = gdp_df['y'] - ramp
 
 
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
-    x='DateTime',
-    y='hpd_fb'
+    x='x',
+    y='y'
 )
 
 # Create a selection that chooses the nearest point & selects based on x-value
 nearest = alt.selection_point(nearest=True, on="pointerover",
-                              fields=["DateTime"], empty=False)
+                              fields=["x"], empty=False)
 
 # Interactive line chart with tooltips
 line.interactive().properties(
@@ -91,14 +91,14 @@ points = line.mark_point().encode(
 
 # Draw a rule at the location of the selection
 rules = alt.Chart(gdp_df).mark_rule(color="gray").encode(
-    x="DateTime:Q",
-    y='hpd_fb:Q'
+    x="x:Q",
+    y='y:Q'
 
 ).transform_filter(
     nearest
 )
 selectors = alt.Chart(gdp_df).mark_point().encode(
-    x="DateTime:Q",
+    x="x:Q",
     opacity=alt.value(0),
 ).add_params(
     nearest
