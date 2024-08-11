@@ -113,9 +113,9 @@ st.altair_chart(altair_chart)
 
 st.line_chart(
     gdp_df,
-    x='DateTime',
+    x='x',
     x_label='date',
-    y='hpd_fb',
+    y='y',
     y_label='feet'
 )
 
