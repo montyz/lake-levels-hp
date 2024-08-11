@@ -40,7 +40,9 @@ def get_gdp_data():
     url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
 
     raw_gdp_df = pd.read_csv(url)
-
+    raw_gdp_df['DateTime'] = pd.to_datetime(raw_gdp_df['DateTime'])
+    raw_gdp_df['hpd_fb'] = raw_gdp_df['hpd_fb'].astype(float)
+    
     return raw_gdp_df
 
 gdp_df = get_gdp_data()
