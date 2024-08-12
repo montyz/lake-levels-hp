@@ -139,8 +139,7 @@ tooltips = (
     .add_params(hover)
 )
 data_layer = line + points + tooltips
-st.altair_chart(data_layer)
-
+st.altair_chart(data_layer, use_container_width=True)
 
 # st.line_chart(
 #     gdp_df,
