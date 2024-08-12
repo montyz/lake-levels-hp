@@ -110,11 +110,11 @@ by Monty Zukowski
 ramp = st.number_input('ramp elevation', value = 4501.0)
 gdp_df['y'] = gdp_df['y'] - ramp
 
-hover = alt.selection_single(
+hover = alt.selection_point(
     fields=["x"],
     nearest=True,
     on="mouseover",
-    empty="none",
+    empty=False,
 )
 
 # The basic line
@@ -136,7 +136,7 @@ tooltips = (
             alt.Tooltip("y", title="Price (USD)"),
         ],
     )
-    .add_selection(hover)
+    .add_params(hover)
 )
 data_layer = line + points + tooltips
 st.altair_chart(data_layer)
