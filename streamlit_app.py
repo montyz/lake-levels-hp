@@ -89,10 +89,9 @@ def demo():
     ).properties(
     width=600, height=300
     )
-    st.altair_chart(demo)
+    st.altair_chart(demo, theme=None)
 
 gdp_df = get_gdp_data()
-st.altair_theme(theme=None)
 demo()
 # -----------------------------------------------------------------------------
 # Draw the actual page
