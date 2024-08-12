@@ -86,6 +86,8 @@ def demo():
     # Put the five layers into a chart and bind the data
     demo = alt.layer(
         line, points, rules
+    ).properties(
+    width=600, height=300
     )
     st.altair_chart(demo)
 
