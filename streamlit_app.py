@@ -81,8 +81,8 @@ tooltips = (
     alt.Chart(gdp_df)
     .mark_rule()
     .encode(
-        x=alt.X("DateTime",title = "Date"),
-        y=alt.Y("depth_at_ramp", title = "Depth at ramp"),
+        x="DateTime",
+        y="depth_at_ramp",
         opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
         tooltip=[
             alt.Tooltip("DateTime", title="Date"),
