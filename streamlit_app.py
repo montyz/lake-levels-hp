@@ -133,7 +133,7 @@ tooltips = (
         opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
         tooltip=[
             alt.Tooltip("x", title="Date"),
-            alt.Tooltip("y", title="Price (USD)"),
+            alt.Tooltip("y", title="Depth at ramp"),
         ],
     )
     .add_params(hover)
@@ -142,13 +142,13 @@ data_layer = line + points + tooltips
 st.altair_chart(data_layer)
 
 
-st.line_chart(
-    gdp_df,
-    x='x',
-    x_label='date',
-    y='y',
-    y_label='feet'
-)
+# st.line_chart(
+#     gdp_df,
+#     x='x',
+#     x_label='date',
+#     y='y',
+#     y_label='feet'
+# )
 
 
 ''
