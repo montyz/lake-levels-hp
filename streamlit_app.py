@@ -92,7 +92,7 @@ def demo():
     st.altair_chart(demo, theme=None)
 
 gdp_df = get_gdp_data()
-demo()
+# demo()
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
@@ -110,6 +110,12 @@ by Monty Zukowski
 ramp = st.number_input('ramp elevation', value = 4501.0)
 gdp_df['y'] = gdp_df['y'] - ramp
 
+hover = alt.selection_single(
+    fields=["x"],
+    nearest=True,
+    on="mouseover",
+    empty="none",
+)
 
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
@@ -117,35 +123,23 @@ line = alt.Chart(gdp_df).mark_line().encode(
     y='y'
 )
 
-# Create a selection that chooses the nearest point & selects based on x-value
-nearest = alt.selection_point(nearest=True, on="pointerover",
-                              fields=["x"], empty=False)
-
-
-# Draw points on the line, and highlight based on selection
-points = line.mark_point().encode(
-   opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+points = line.transform_filter(hover).mark_circle(size=65)
+tooltips = (
+    alt.Chart(gdp_df)
+    .mark_rule()
+    .encode(
+        x="x",
+        y="y",
+        opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
+        tooltip=[
+            alt.Tooltip("x", title="Date"),
+            alt.Tooltip("y", title="Price (USD)"),
+        ],
+    )
+    .add_selection(hover)
 )
-
-# Draw a rule at the location of the selection
-rules = alt.Chart(gdp_df).mark_rule(color="gray").encode(
-    x="x:Q",
-    y='y:Q'
-).transform_filter(
-    nearest
-)
-selectors = alt.Chart(gdp_df).mark_point().encode(
-    x="x:Q",
-    opacity=alt.value(0),
-).add_params(
-    nearest
-)
-altair_chart = alt.layer(
-    line, points, rules
-)
-
-
-st.altair_chart(altair_chart)
+data_layer = line + points + tooltips
+st.altair_chart(data_layer)
 
 
 st.line_chart(
