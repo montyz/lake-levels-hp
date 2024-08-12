@@ -60,7 +60,7 @@ by Monty Zukowski
 ''
 ''
 
-ramp = st.number_input('ramp elevation', value = 4501.0)
+ramp = st.number_input('ramp elevation (adjustable)', value = 4501.0)
 gdp_df['depth_at_ramp'] = gdp_df['hpd_fb'] - ramp
 
 hover = alt.selection_point(
