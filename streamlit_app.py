@@ -72,8 +72,8 @@ hover = alt.selection_point(
 
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
-    x='DateTime',
-    y='depth_at_ramp'
+    x=alt.X("DateTime",title = "Date"),
+    y=alt.Y("depth_at_ramp", title = "Depth at ramp")
 )
 
 points = line.transform_filter(hover).mark_circle(size=65)
