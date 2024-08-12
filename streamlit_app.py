@@ -41,58 +41,11 @@ def get_gdp_data():
     url = f"{base_url}?station={station}&format={format_type}&year={start_year}&month={start_month}&day={start_day}&year={end_year}&month={end_month}&day={end_day}&pcode={param1}&pcode={param2}"
 
     raw_gdp_df = pd.read_csv(url)
-    raw_gdp_df['x'] = pd.to_datetime(raw_gdp_df['DateTime'])
-    raw_gdp_df['y'] = raw_gdp_df['hpd_fb'].astype(float)
     
     return raw_gdp_df
 
-# def demo():
-#     np.random.seed(42)
-#     columns = ["A", "B", "C"]
-#     source = pd.DataFrame(
-#         np.cumsum(np.random.randn(100, 3), 0).round(2),
-#         columns=columns, index=pd.RangeIndex(100, name="x"),
-#     )
-#     source = source.reset_index().melt("x", var_name="category", value_name="y")
-
-#     # Create a selection that chooses the nearest point & selects based on x-value
-#     nearest = alt.selection_point(nearest=True, on="pointerover",
-#                                 fields=["x"], empty=False)
-
-#     # The basic line
-#     line = alt.Chart(source).mark_line(interpolate="basis").encode(
-#         x="x:Q",
-#         y="y:Q",
-#         color="category:N"
-#     )
-
-#     # Draw points on the line, and highlight based on selection
-#     points = line.mark_point().encode(
-#         opacity=alt.condition(nearest, alt.value(1), alt.value(0))
-#     )
-
-#     # Draw a rule at the location of the selection
-#     rules = alt.Chart(source).transform_pivot(
-#         "category",
-#         value="y",
-#         groupby=["x"]
-#     ).mark_rule(color="gray").encode(
-#         x="x:Q",
-#         opacity=alt.condition(nearest, alt.value(0.3), alt.value(0)),
-#         tooltip=[alt.Tooltip(c, type="quantitative") for c in columns],
-#     ).add_params(nearest)
-
-
-#     # Put the five layers into a chart and bind the data
-#     demo = alt.layer(
-#         line, points, rules
-#     ).properties(
-#     width=600, height=300
-#     )
-#     st.altair_chart(demo, theme=None)
-
 gdp_df = get_gdp_data()
-# demo()
+
 # -----------------------------------------------------------------------------
 # Draw the actual page
 
@@ -108,7 +61,7 @@ by Monty Zukowski
 ''
 
 ramp = st.number_input('ramp elevation', value = 4501.0)
-gdp_df['y'] = gdp_df['y'] - ramp
+gdp_df['depth_at_ramp'] = gdp_df['hpd_fb'] - ramp
 
 hover = alt.selection_point(
     fields=["DateTime"],
@@ -120,7 +73,7 @@ hover = alt.selection_point(
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
     x='DateTime',
-    y='y'
+    y='depth_at_ramp'
 )
 
 points = line.transform_filter(hover).mark_circle(size=65)
@@ -129,11 +82,11 @@ tooltips = (
     .mark_rule()
     .encode(
         x="DateTime",
-        y="y",
+        y="depth_at_ramp",
         opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
         tooltip=[
             alt.Tooltip("DateTime", title="Date"),
-            alt.Tooltip("y", title="Depth at ramp"),
+            alt.Tooltip("depth_at_ramp", title="Depth at ramp"),
         ],
     )
     .add_params(hover)
