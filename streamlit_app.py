@@ -92,6 +92,7 @@ def demo():
     st.altair_chart(demo)
 
 gdp_df = get_gdp_data()
+st.altair_theme(theme=None)
 demo()
 # -----------------------------------------------------------------------------
 # Draw the actual page
