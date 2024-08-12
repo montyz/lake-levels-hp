@@ -111,7 +111,7 @@ ramp = st.number_input('ramp elevation', value = 4501.0)
 gdp_df['y'] = gdp_df['y'] - ramp
 
 hover = alt.selection_point(
-    fields=["x"],
+    fields=["DateTime"],
     nearest=True,
     on="mouseover",
     empty=False,
@@ -119,7 +119,7 @@ hover = alt.selection_point(
 
 # The basic line
 line = alt.Chart(gdp_df).mark_line().encode(
-    x='x',
+    x='DateTime',
     y='y'
 )
 
@@ -128,11 +128,11 @@ tooltips = (
     alt.Chart(gdp_df)
     .mark_rule()
     .encode(
-        x="x",
+        x="DateTime",
         y="y",
         opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
         tooltip=[
-            alt.Tooltip("x", title="Date"),
+            alt.Tooltip("DateTime", title="Date"),
             alt.Tooltip("y", title="Depth at ramp"),
         ],
     )
@@ -140,15 +140,6 @@ tooltips = (
 )
 data_layer = line + points + tooltips
 st.altair_chart(data_layer, use_container_width=True)
-
-# st.line_chart(
-#     gdp_df,
-#     x='x',
-#     x_label='date',
-#     y='y',
-#     y_label='feet'
-# )
-
 
 ''
 '### raw data from usbr.gov'
