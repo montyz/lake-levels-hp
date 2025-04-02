@@ -58,6 +58,7 @@ by Monty Zukowski
 "Current elevation:" + gdp_df['hpd_fb']
 # Add some spacing
 ''
+gdp_df['hpd_fb']
 ''
 
 ramp = st.number_input('ramp elevation (adjustable)', value = 4501.0)
