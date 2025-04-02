@@ -55,9 +55,8 @@ gdp_df = get_gdp_data()
 
 by Monty Zukowski
 '''
-"Current elevation:" + gdp_df['hpd_fb']
 # Add some spacing
-''
+'Current Elevation:'
 gdp_df['hpd_fb']
 ''
 
